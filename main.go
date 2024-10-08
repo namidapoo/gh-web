@@ -12,8 +12,9 @@ import (
 func main() {
 	// サブコマンドの取得
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: gh web [i|p|pr]")
-		os.Exit(1)
+		// サブコマンドがない場合にはただの `gh browse` を実行
+		runGHCommand("gh", "browse")
+		return
 	}
 	command := os.Args[1]
 
@@ -66,6 +67,7 @@ func main() {
 		runGHCommand("gh", "pr", "view", prNumber, "--web")
 
 	default:
+		// 不明なサブコマンドが指定された場合はエラーメッセージを表示
 		fmt.Printf("Unknown subcommand: %s\n", command)
 		fmt.Println("Available subcommands: i, issue, p, pr")
 		os.Exit(1)
