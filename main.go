@@ -67,10 +67,9 @@ func main() {
 		runGHCommand("gh", "pr", "view", prNumber, "--web")
 
 	default:
-		// 不明なサブコマンドが指定された場合はエラーメッセージを表示
-		fmt.Printf("Unknown subcommand: %s\n", command)
-		fmt.Println("Available subcommands: i, issue, p, pr")
-		os.Exit(1)
+		args := []string{"browse"}
+		args = append(args, os.Args[1:]...)
+		runGHCommand("gh", args...)
 	}
 }
 
